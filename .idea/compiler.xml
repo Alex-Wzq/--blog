@@ -7,18 +7,22 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="blog-rest" />
+        <module name="base-controller" />
         <module name="shiro" />
-        <module name="blog-repository" />
         <module name="blog-core" />
+        <module name="blog-rest" />
+        <module name="blog-repository" />
+        <module name="blog-shiro-rest" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="base-controller" options="-parameters" />
       <module name="blog-core" options="-parameters" />
       <module name="blog-repository" options="-parameters" />
       <module name="blog-rest" options="-parameters" />
+      <module name="blog-shiro-rest" options="-parameters" />
       <module name="shiro" options="" />
     </option>
   </component>

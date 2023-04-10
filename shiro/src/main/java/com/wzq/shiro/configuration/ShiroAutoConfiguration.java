@@ -4,7 +4,6 @@ import com.wzq.shiro.AccountRealm;
 import com.wzq.shiro.JwtFilter;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
-import org.apache.shiro.spring.config.web.autoconfigure.ShiroWebAutoConfiguration;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
@@ -42,16 +41,18 @@ public class ShiroAutoConfiguration {
     }
 
     @Bean
-    public DefaultWebSecurityManager securityManager(AccountRealm accountRealm) {
+    public DefaultWebSecurityManager securityManager(AccountRealm accountRealm,
+                                                     SessionManager sessionManager,
+                                                     RedisCacheManager redisCacheManager) {
 
-//        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager(accountRealm);
-//
-//        //inject sessionManager
-//        securityManager.setSessionManager(sessionManager);
-//
-//        // inject redisCacheManager
-//        securityManager.setCacheManager(redisCacheManager);
-        return null;
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager(accountRealm);
+
+        //inject sessionManager
+        securityManager.setSessionManager(sessionManager);
+
+        // inject redisCacheManager
+        securityManager.setCacheManager(redisCacheManager);
+        return securityManager;
     }
 
     @Bean
