@@ -14,19 +14,35 @@ import org.springframework.stereotype.Component;
 @Component
 public class AccountRealm extends AuthorizingRealm {
 
-//    @Autowired
-//    private ShiroUserServiceInterface userService;
+    @Autowired
+    private ShiroUserServiceInterface userService;
 
+    /**
+     * 让realm支持jwt的凭证校验
+     * @param token
+     * @return
+     */
     @Override
     public boolean supports(AuthenticationToken token) {
         return token instanceof JwtToken;
     }
 
+    /**
+     * 权限校验
+     * @param principals
+     * @return
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         return null;
     }
 
+    /**
+     * 登录认证校验
+     * @param token
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
@@ -34,8 +50,7 @@ public class AccountRealm extends AuthorizingRealm {
 
         String userId = JwtUtils.getClaimByToken((String) jwtToken.getPrincipal()).getSubject();
 
-//        ShiroUser user = userService.getById(Long.valueOf(userId));
-        ShiroUser user = null;
+        ShiroUser user = userService.getById(Long.valueOf(userId));
         if (user == null) {
             throw new UnknownAccountException("账户不存在");
         }

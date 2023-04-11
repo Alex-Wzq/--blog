@@ -31,6 +31,11 @@ public class ShiroAutoConfiguration {
     @Autowired
     private JwtFilter jwtFilter;
 
+    /**
+     * 解决shiro的权限数据和会话信息能保存到redis中，实现会话共享
+     * @param redisSessionDAO
+     * @return
+     */
     @Bean
     public SessionManager sessionManager(RedisSessionDAO redisSessionDAO) {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
@@ -40,6 +45,9 @@ public class ShiroAutoConfiguration {
         return sessionManager;
     }
 
+    /**
+     * 在DefaultWebSecurityManager中为了关闭shiro自带的session方式，我们需要设置为false，这样用户就不再能通过session方式登录shiro。后面将采用jwt凭证登录
+     */
     @Bean
     public DefaultWebSecurityManager securityManager(AccountRealm accountRealm,
                                                      SessionManager sessionManager,
@@ -50,11 +58,16 @@ public class ShiroAutoConfiguration {
         //inject sessionManager
         securityManager.setSessionManager(sessionManager);
 
-        // inject redisCacheManager
+        // inject redisCacheManager 解决shiro的权限数据和会话信息能保存到redis中，实现会话共享
         securityManager.setCacheManager(redisCacheManager);
         return securityManager;
     }
 
+    /**
+     * 不再通过编码形式拦截Controller访问路径，而是所有的路由都需要经过JwtFilter这个过滤器，然后判断请求头中是否含有jwt的信息，
+     * 有就登录，没有就跳过。跳过之后，有Controller中的shiro注解进行再次拦截，比如@RequiresAuthentication，这样控制权限访问
+     * @return
+     */
     @Bean
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
