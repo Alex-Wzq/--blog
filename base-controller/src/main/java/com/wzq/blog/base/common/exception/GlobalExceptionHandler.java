@@ -1,6 +1,6 @@
 package com.wzq.blog.base.common.exception;
 
-import com.wzq.blog.base.entity.Result;
+import com.wzq.blog.base.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;

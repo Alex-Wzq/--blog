@@ -1,4 +1,4 @@
-package com.wzq.blog.shiro.rest.config;
+package com.wzq.blog.shiro.rest.configuration;
 
 import com.wzq.blog.core.service.UserService;
 import com.wzq.blog.repository.entity.User;

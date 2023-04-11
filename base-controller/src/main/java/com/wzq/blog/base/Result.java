@@ -1,4 +1,4 @@
-package com.wzq.blog.base.entity;
+package com.wzq.blog.base;
 
 import lombok.Data;
 
