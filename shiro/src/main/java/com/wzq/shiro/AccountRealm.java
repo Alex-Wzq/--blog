@@ -17,6 +17,9 @@ public class AccountRealm extends AuthorizingRealm {
     @Autowired
     private ShiroUserServiceInterface userService;
 
+    @Autowired
+    private JwtUtils jwtUtils;
+
     /**
      * 让realm支持jwt的凭证校验
      * @param token
@@ -48,7 +51,7 @@ public class AccountRealm extends AuthorizingRealm {
 
         JwtToken jwtToken = (JwtToken) token;
 
-        String userId = JwtUtils.getClaimByToken((String) jwtToken.getPrincipal()).getSubject();
+        String userId = jwtUtils.getClaimByToken((String) jwtToken.getPrincipal()).getSubject();
 
         ShiroUser user = userService.getById(Long.valueOf(userId));
         if (user == null) {

@@ -11,18 +11,20 @@ import java.util.Date;
 /**
  * jwt工具类
  */
+@Component
+@ConfigurationProperties(prefix = "wzq.jwt")
 public class JwtUtils {
 
-    private static final String secret = "f4e2e52034348f86b67cde581c0f9eb5";
+    private String secret = "f4e2e52034348f86b67cde581c0f9eb5";
 
-    private static final long expire = 604800;
+    private long expire = 604800;
 
-    private static final String header = "Authorization";
+    private String header = "Authorization";
 
     /**
      * 生成jwt token
      */
-    public static String generateToken(long userId) {
+    public String generateToken(long userId) {
         Date nowDate = new Date();
         //过期时间
         Date expireDate = new Date(nowDate.getTime() + expire * 1000);
@@ -36,7 +38,7 @@ public class JwtUtils {
                 .compact();
     }
 
-    public static Claims getClaimByToken(String token) {
+    public Claims getClaimByToken(String token) {
         return Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)

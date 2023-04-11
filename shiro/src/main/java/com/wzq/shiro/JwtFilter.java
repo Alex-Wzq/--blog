@@ -23,6 +23,9 @@ import java.io.IOException;
 @Component
 public class JwtFilter extends AuthenticatingFilter {
 
+    @Autowired
+    private JwtUtils jwtUtils;
+
     @Override
     protected AuthenticationToken createToken(ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
 
@@ -45,7 +48,7 @@ public class JwtFilter extends AuthenticatingFilter {
         } else {
 
             // 校验jwt
-            Claims claim = JwtUtils.getClaimByToken(jwt);
+            Claims claim = jwtUtils.getClaimByToken(jwt);
             if(claim == null || JwtUtils.isTokenExpired(claim.getExpiration())) {
                 throw new ExpiredCredentialsException("token已失效，请重新登录");
             }
