@@ -9,19 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>blog-rest</artifactId>
+    <artifactId>blog-shiro-rest</artifactId>
 
     <dependencies>
-
         <dependency>
             <groupId>com.wzq.blog</groupId>
             <artifactId>base-controller</artifactId>
             <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
         </dependency>
 
         <dependency>
@@ -36,16 +30,6 @@
             <artifactId>shiro</artifactId>
             <version>${project.version}</version>
         </dependency>
-
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

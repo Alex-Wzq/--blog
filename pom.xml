@@ -19,6 +19,8 @@
         <module>blog-core</module>
         <module>blog-repository</module>
         <module>shiro</module>
+        <module>base-controller</module>
+        <module>blog-shiro-rest</module>
     </modules>
 
     <properties>
